@@ -11,11 +11,13 @@ This is a MERN stack application for managing a bookstore.
 
 ## Usage
 
-1. Start the development server:
-   ```bash
-   npm run dev
-   ```
-2. Open your browser and navigate to `http://localhost:3000`
+Start development server:
+
+```bash
+npm run dev
+```
+
+    navigate to `http://localhost:3000`
 
 ## Contributing
 
