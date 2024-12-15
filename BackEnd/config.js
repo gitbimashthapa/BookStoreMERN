@@ -1,5 +1,4 @@
 export const PORT = 5555;
 
-import { PORT } from './config.js';
-
-const app = express();
+export const mongoDBURL =
+'mongodb+srv://root:<db_password>@book-store-mern.txty3.mongodb.net/books-collection?retryWrites=true&w=majority&appName=Book-Store-MERN';
