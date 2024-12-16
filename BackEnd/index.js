@@ -10,10 +10,15 @@ return response.status(234).send('Welcome');
 
 
 
+
 mongoose.connect(mongoDBURL)
 .then(() => {
     console.log('App Connected to database');
+    app.listen(PORT, () => {
+     console.log('App is listening to port: ${PORT}');
+
+});
 })
-.catxh((error) => {
-    console.log('Error connecting to database: ${error}');
+.catch((error) => {
+    console.log(error);
 });
