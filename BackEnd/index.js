@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import { bookRouter } from './Routes/bookRouter.js';
 const app = express();
 
+//Middleware for parsing request body
+app.use(express.json());
+
 app.get('/', (request, response) => {
 console.log(request);
 return response.status(234).send('Welcome');
@@ -37,7 +40,18 @@ message: 'send all required fields: title, author, publishYear',
     }
 })
 
-mongoose.connect(mongoDBURL)
+
+// Route for get all books
+app.get('/books', async (request, response) => {
+    try {
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({message: 'Error'});
+    }
+});
+
+mongoose
+.connect(mongoDBURL)
 .then(() => {
     console.log('App Connected to database');
     app.listen(PORT, () => {
