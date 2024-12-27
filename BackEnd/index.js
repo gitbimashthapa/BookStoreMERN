@@ -33,7 +33,10 @@ message: 'send all required fields: title, author, publishYear',
                 
                 const book = await Book.create(newBook);
                 
-                return response,status(201).send(book);
+                return response.status(200).json({
+                    Count: books.length,
+                    data: books
+                });
     } catch (error) {
         console.log(error.message);
         response.status(500).send({message: 'Error in Saving Book'});
