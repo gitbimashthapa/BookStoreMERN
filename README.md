@@ -2,6 +2,8 @@
 
 This is a MERN stack application for managing a bookstore.
 
+git add . ; git commit -m "Commit" ; git push origin master
+
 ## Technologies Used
 
 - MongoDB: Database
