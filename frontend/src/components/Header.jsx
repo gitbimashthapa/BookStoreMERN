@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+  const location = useLocation();
+  
   return (
     <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
       <div className="container mx-auto px-4 py-6">
@@ -13,8 +15,15 @@ const Header = () => {
             <span>BookStore MERN</span>
           </Link>
           <div className="hidden md:flex space-x-6">
-            <Link to="/" className="hover:text-blue-200 transition">Home</Link>
-            <Link to="/books/create" className="hover:text-blue-200 transition">Add Book</Link>
+            <Link to="/" className={`hover:text-blue-200 transition ${location.pathname === '/' ? 'font-semibold border-b-2 border-white' : ''}`}>
+              Home
+            </Link>
+            <Link to="/books" className={`hover:text-blue-200 transition ${location.pathname === '/books' ? 'font-semibold border-b-2 border-white' : ''}`}>
+              Books
+            </Link>
+            <Link to="/books/create" className={`hover:text-blue-200 transition ${location.pathname === '/books/create' ? 'font-semibold border-b-2 border-white' : ''}`}>
+              Add Book
+            </Link>
           </div>
         </div>
       </div>
