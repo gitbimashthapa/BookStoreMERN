@@ -1,4 +1,3 @@
 export const PORT = 5555;
 
-export const mongoDBURL =
-'mongodb+srv://root:<db_password>@book-store-mern.txty3.mongodb.net/books-collection?retryWrites=true&w=majority&appName=Book-Store-MERN';
+export const mongoDBURL = process.env.MONGODB_URL || 'mongodb://localhost:27017/';
