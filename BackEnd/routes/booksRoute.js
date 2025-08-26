@@ -43,7 +43,7 @@ router.post('/', protect, async (request, response) => {
 });
 
 // Route for Get All Books from database
-router.get('/', async (request, response) => {
+router.get('/', protect, async (request, response) => {
   try {
     const books = await Book.find({});
 
@@ -67,7 +67,7 @@ router.get('/', async (request, response) => {
 });
 
 // Route for Get One Book from database by id
-router.get('/:id', async (request, response) => {
+router.get('/:id', protect, async (request, response) => {
   try {
     const { id } = request.params;
 

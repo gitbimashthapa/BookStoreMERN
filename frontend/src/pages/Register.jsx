@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import Header from '../../components/Header';
+import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const { login } = useAuth();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -36,9 +38,8 @@ const Register = () => {
         password,
       });
 
-      // Save user info and token to local storage
-      localStorage.setItem('userInfo', JSON.stringify(response.data));
-      localStorage.setItem('token', response.data.token);
+      // Use AuthContext to login
+      login(response.data, response.data.token);
 
       enqueueSnackbar('Registration successful!', { variant: 'success' });
       setLoading(false);

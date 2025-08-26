@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import Header from '../../components/Header';
+import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -16,16 +17,16 @@ const Profile = () => {
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const { userInfo, login, logout } = useAuth();
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const token = localStorage.getItem('token');
-    
-    if (!userInfo || !token) {
+    if (!userInfo) {
       navigate('/login');
       return;
     }
 
+    const token = localStorage.getItem('token');
+    
     const fetchUserProfile = async () => {
       try {
         const config = {
@@ -46,8 +47,7 @@ const Profile = () => {
       } catch (error) {
         console.log(error);
         if (error.response?.status === 401) {
-          localStorage.removeItem('userInfo');
-          localStorage.removeItem('token');
+          logout();
           navigate('/login');
         }
         setLoading(false);
@@ -77,7 +77,7 @@ const Profile = () => {
 
     fetchUserProfile();
     fetchUserHistory();
-  }, [navigate]);
+  }, [navigate, userInfo, logout]);
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -104,8 +104,8 @@ const Profile = () => {
         config
       );
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      localStorage.setItem('token', data.token);
+      // Update auth context
+      login(data, data.token);
       
       setUser(data);
       setPassword('');
@@ -121,8 +121,7 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('token');
+    logout();
     navigate('/login');
   };
 
