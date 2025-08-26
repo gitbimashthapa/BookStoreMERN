@@ -47,6 +47,13 @@ const Header = () => {
                   </svg>
                   <span>Add Book</span>
                 </Link>
+                
+                <Link to="/mybooks" className={`flex items-center space-x-1 hover:text-blue-200 transition ${location.pathname === '/mybooks' ? 'font-semibold border-b-2 border-white' : ''}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                  <span>My Books</span>
+                </Link>
                 <div className="relative">
                   <button 
                     onClick={() => setIsMenuOpen(!isMenuOpen)} 
@@ -159,6 +166,16 @@ const Header = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Add Book</span>
+                </Link>
+                <Link 
+                  to="/mybooks" 
+                  className="flex items-center space-x-2 hover:bg-blue-700 px-3 py-2 rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                  <span>My Books</span>
                 </Link>
                 <Link 
                   to="/profile" 

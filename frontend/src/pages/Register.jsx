@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -32,23 +32,28 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5555/api/users', {
+      const response = await api.post('/api/users', {
         name,
         email,
         password,
       });
 
-      // Use AuthContext to login
-      login(response.data, response.data.token);
+      console.log('Registration response:', response.data);
+      // Use AuthContext to login - Extract token from response.data
+      const userData = { ...response.data };
+      const token = userData.token;
+      delete userData.token; // Remove token from the userData object
+      login(userData, token);
 
       enqueueSnackbar('Registration successful!', { variant: 'success' });
       setLoading(false);
       navigate('/books');
     } catch (error) {
       setLoading(false);
-      const message = error.response?.data?.message || 'An error occurred';
+      console.error('Registration error:', error);
+      console.error('Error response:', error.response);
+      const message = error.response?.data?.message || 'Registration failed. Please try again.';
       enqueueSnackbar(message, { variant: 'error' });
-      console.log(error);
     }
   };
 

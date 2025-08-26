@@ -9,6 +9,7 @@ import LandingPage from '../../pages/LandingPage';
 import Login from '../../pages/Login';
 import Register from '../../pages/Register';
 import Profile from '../../pages/Profile';
+import MyBooks from '../../pages/MyBooks';
 import ProtectedRoute from '../../components/ProtectedRoute';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/books' element={<Home />} />
+        <Route path='/mybooks' element={<ProtectedRoute><MyBooks /></ProtectedRoute>} />
         <Route path='/books/create' element={<ProtectedRoute><CreateBook /></ProtectedRoute>} />
         <Route path='/books/details/:id' element={<ShowBook />} />
         <Route path='/books/edit/:id' element={<ProtectedRoute><EditBook /></ProtectedRoute>} />

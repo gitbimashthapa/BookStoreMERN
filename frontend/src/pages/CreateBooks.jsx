@@ -2,36 +2,44 @@ import React, { useState } from 'react';
 import BackButton from '../components/home/BackButton';
 import Spinner from '../components/home/Spinner';
 import Header from '../components/Header';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const { userInfo } = useAuth();
 
   const handleSaveBook = () => {
     const data = {
       title,
       author,
       publishYear,
+      description,
+      coverImage,
+      // user is automatically added in the backend from the token
     };
     setLoading(true);
-    axios
-      .post('http://localhost:5555/books', data)
+    
+    api.post('/books', data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
-        navigate('/');
+        navigate('/books');
       })
       .catch((error) => {
         setLoading(false);
-        enqueueSnackbar('Error creating book', { variant: 'error' });
-        console.log(error);
+        const message = error.response?.data?.message || 'Error creating book';
+        enqueueSnackbar(message, { variant: 'error' });
+        console.error('Error creating book:', error);
       });
   };
 
@@ -95,6 +103,32 @@ const CreateBooks = () => {
                         placeholder="Enter the publish year"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Description
+                      </label>
+                      <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Enter book description (optional)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        rows="4"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Cover Image URL
+                      </label>
+                      <input
+                        type="text"
+                        value={coverImage}
+                        onChange={(e) => setCoverImage(e.target.value)}
+                        placeholder="Enter cover image URL (optional)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                       />
                     </div>
                     

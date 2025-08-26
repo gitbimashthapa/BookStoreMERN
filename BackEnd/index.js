@@ -33,7 +33,10 @@ app.use('/books', booksRoute);
 app.use('/api/users', usersRoute);
 
 mongoose
-  .connect(mongoDBURL)
+  .connect(mongoDBURL, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
     console.log('App connected to database');
     app.listen(PORT, () => {
@@ -41,5 +44,5 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error('MongoDB connection error:', error);
   });

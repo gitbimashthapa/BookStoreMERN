@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5555/api/users/login', {
+      const response = await api.post('/api/users/login', {
         email,
         password,
       });

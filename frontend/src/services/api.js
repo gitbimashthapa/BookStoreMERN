@@ -28,6 +28,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('API Error:', error.response?.data || error.message);
+    
     // Handle 401 Unauthorized errors (token expired or invalid)
     if (error.response && error.response.status === 401) {
       // Clear local storage and refresh the page to redirect to login
