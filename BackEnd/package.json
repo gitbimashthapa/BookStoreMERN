@@ -12,9 +12,11 @@
   "author": "gitbimashthapa",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.3.1",
     "nodemon": "^2.0.22"
   }
